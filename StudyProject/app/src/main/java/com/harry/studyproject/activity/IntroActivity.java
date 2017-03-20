@@ -1,10 +1,12 @@
-package com.harry.studyproject;
+package com.harry.studyproject.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+
+import com.harry.studyproject.R;
 
 /**
  * Created by user on 2017-03-11.

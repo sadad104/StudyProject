@@ -1,12 +1,16 @@
-package com.harry.studyproject;
+package com.harry.studyproject.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.harry.studyproject.R;
+import com.harry.studyproject.base.BasePreferenceManager;
 
 /**
  * Created by user on 2017-03-11.
@@ -15,6 +19,8 @@ import android.widget.Toast;
 public class LoginActivity extends Activity {
 
     private EditText edtId, edtPwd;
+    private CheckBox cbMemoryPwd;
+    private BasePreferenceManager preferenceManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -23,11 +29,33 @@ public class LoginActivity extends Activity {
 
         edtId = (EditText) findViewById(R.id.edt_id);
         edtPwd = (EditText) findViewById(R.id.edt_password);
+        cbMemoryPwd = (CheckBox) findViewById(R.id.cb_memory_pwd);
+
+        preferenceManager = BasePreferenceManager.getInstance(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        checkinfoLogin();
+    }
+
+    public void checkinfoLogin() {
+        boolean memory = preferenceManager.getBoolean("memory");
+        if(memory) {
+            edtId.setText(preferenceManager.getString("id"));
+            edtPwd.setText(preferenceManager.getString("pwd"));
+            cbMemoryPwd.setChecked(memory);
+        }
+    }
+
+    public void setInfoLogin() {
+        if(cbMemoryPwd.isChecked()) {
+            preferenceManager.putString("id", edtId.getText().toString());
+            preferenceManager.putString("pwd", edtPwd.getText().toString());
+            preferenceManager.putBoolean("memory", cbMemoryPwd.isChecked());
+        }
     }
 
     //로그인
@@ -38,6 +66,8 @@ public class LoginActivity extends Activity {
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
             return;
         }
+
+        setInfoLogin();
 
         Intent main = new Intent(this, MainActivity.class);
         startActivity(main);

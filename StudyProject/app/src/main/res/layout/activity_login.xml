@@ -51,10 +51,18 @@
             android:inputType="textPassword" />
     </LinearLayout>
 
-    <LinearLayout
+    <CheckBox
+        android:id="@+id/cb_memory_pwd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/layout_password"
+        android:layout_centerInParent="true"
+        android:text="비밀번호 기억하기"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cb_memory_pwd"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp">
 
